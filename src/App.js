@@ -1,25 +1,47 @@
-import logo from './logo.svg';
+import logo, { ReactComponent } from './logo.svg';
 import './App.css';
+import React from 'react';
+import {client} from './client';
+import Posts from './components/Posts.js'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+
+  // this will contain data received from contenful
+  // once all articles are loaded it gets passed into the posts componenet as a prompt 
+  state = {
+    articles: []
+  }
+
+  componentDidMount() {
+    client.getEntries()
+    .then((response) => {
+      console.log(response)
+      this.setState({
+        articles: response.items
+      })
+    })
+    .catch(console.error)
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <div className='container'>
+          <header>
+            <div className='wrapper'>
+              <h1>Blog Post with Contentful</h1>
+            </div>
+          </header>
+          <main>
+            <div className='wrapper'>
+              <Posts posts = {this.state.articles} />
+            </div>
+          </main>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
