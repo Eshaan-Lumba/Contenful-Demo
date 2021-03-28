@@ -1,4 +1,7 @@
-# Blog Website using Contenful and React
+# Blog Website using Contentful and React
+
+## Description
+After setting up the backend blog data on Contentful, including the title of the blog and the body, using React, we publish that data on a customizable website with live changes as the blog data changes on Contentful.
 
 ## Available Scripts
 
